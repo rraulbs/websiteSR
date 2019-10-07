@@ -1,0 +1,13 @@
+.links {
+	padding: 10px; 
+	display: inline-block;
+}
+
+.externLinks {
+	width: 370px;
+	height: 400px;
+}
+
+.toolbar {
+	height: 180px;
+}

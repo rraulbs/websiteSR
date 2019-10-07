@@ -1,0 +1,52 @@
+.headerImage {
+	height: 350px;
+}
+
+.size0-25 {
+	width: 25%;
+}
+
+.size0-5 {
+	width: 35%;
+}
+
+.size1 {
+	width: 50%;
+}
+
+.size2 {
+	width: 70%;
+}
+
+.size3 {
+	width: 85%;
+}
+
+.size4 {
+	width: 90%;
+}
+
+.quoteLine {
+	margin-top: -100px;
+	margin: -20px auto 20px;
+	text-align: center;
+}
+
+.spaceTab {
+	display:inline-block; 
+	width: 40px;
+}
+
+.paragraphText {
+	text-align: justify;
+	text-justify: inter-word;
+}
+
+.listItems {
+	margin-left: 40px;
+}
+
+.centerImage {
+    margin-left: auto;
+    margin-right: auto;
+}
