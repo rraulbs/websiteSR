@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Segment Routing (SR)</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="js/jquery.min.js"></script>
+		<script src="js/jquery.dropotron.min.js"></script>
+		<script src="js/jquery.scrollgress.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+		<script src="js/jquery.slidertron.min.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript>
+		<link rel="stylesheet" href="css/no-footbar.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie/v9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header" class="skel-layers-fixed">
+				<h1><a href="index.html">Segment Routing (SR) &nbsp&nbsp<span>GTA - UFRJ</span></a></h1>
+				<nav id="nav">
+					<ul>
+						<li><a href="index.html">Início</a></li>
+						<li><a href="introducao.html">Introdução</a></li>
+						<li><a href="aplicacoes.html">Como funciona</a></li>
+						<li><a href="arquitetura.html">Arquitetura</a></li>
+						<li><a href="grafos.html">Glossário</a></li>
+						<li><a href="questoes.html">Questões</a></li>
+						<li><a href="bibliografia.html">Bibliografia</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Main -->
+			<section id="main" class="wrapper style1">
+				<header class="major">
+					<h2>Introdução</h2>
+					<p>Definições e desafios do Segment Routing</p>
+				</header>
+				<div class="container">
+
+					<!-- Content -->
+						<section id="content">
+							<a href="#" class="image fit"><img src="images/world.jpg" alt="" class="headerImage"/></a>
+							<h3>Um Mundo mais conectado e novos desafios</h3>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Nas últimas décadas observamos o surgimento de diversas novas tecnologias que vem se popularizando cada vez mais em nosso cotidiano, como o 5G, Internet das coisas (IoT), Inteligência Artificial (IA), entre outras. E com elas, tais tecnologias trazem consigo novas necessidades como a demanda de uma maior capacidade de computação, visto que a borda da rede está crescendo continuamente. Tal crescimento vem aumentando a pressão sobre a conectividade IP e os protocolos que gerem a internet atualmente. Essa pressão exige a criação de novas soluções e implementações para lidar com os novos desafios da rede.
+							</p>
+							<div class="4u 6u(3) centerImage size1"><span class=" image fit"><img src="images/overview.png" alt="" /></span></div>
+							<p  class="paragraphText"><span class="spaceTab"></span>
+								Nas redes IP tradicionais, decisões de encaminhamento de pacotes são realizadas <i>salto-por-salto</i> (hop-by-hop) com roteadores que realizam pesquisas de rota a cada nó. Essas redes IP usam <b>IGP</b> (Interior Gateway Protocol), que são construídos para tomar decisões de encaminhamento de pacotes com base em um custo de caminho atribuído especificado. Os pacotes com origem e/ou destino semelhantes seguirão a mesma rota, resultando em congestionamento, mesmo se os caminhos opcionais estiverem subutilizados ou até mesmo ociosos
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Tentando resolver esse problema, o TE (Traffic Engineering) foi introduzido e, em vez de as decisões de encaminhamento serem tomadas em uma base hop-by-hop, os roteadores de entrada determinam o caminho da origem até destino para cada fluxo de tráfego específico. Dessa forma, o tráfego que tomaria um caminho de baixo custo, porém congestionado, agora pode ser direcionado para rotas subutilizadas. Em outras palavras, executa o "balanceamento de carga" de tráfego.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								O RSVP (Resource Reservation Protocol, ou protocolo para reserva de recursos de rede) também foi introduzido para reservar recursos fim a fim ao longo do caminho de fluxo de tráfego em uma rede IP. O protocolo de sinalização RSVP foi ampliado com recursos MPLS (Multi-Protocol Label Switch) para admitir MPLS-TE, permitindo que o RSVP configure uma rota de rede utilizando etiqueta LSP (Label Switched Path), em uma rede MPLS-TE com extensão RSVP-TE.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								A tecnologia preferida atualmente para que as operadoras de rede desenhem e implantem redes MPLS com engenharia de tráfego é o RSVP-TE. O problema é que O LDP (Label Distribution Protocol), e especificamente o RSVP-TE, são protocolos complicados para implementar, manter, operar e solucionar problemas quando as coisas dão errado. Eles geram muita sinalização na rede, têm uma visão limitada da topologia da rede e inundam a rede com túneis MPLS.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								As operadoras de rede, portanto, necessitam de uma equipe de operações altamente qualificada para suportar arquiteturas de rede RSVP-TE. E escalar redes RSVP-TE pode rapidamente se tornar uma tarefa difícil e algumas vezes inviável.
+							</p>
+
+							<h3>O que é Segment Routing?</h3>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Segment Routing (SR) ou roteamento por segmento, é uma tecnologia moderna de roteamento de origem que vem sendo desenvolvida por grupos de trabalho do SPRING e IPv6 do IETF.
+								Essa arquitetura de roteamento de origem, traz um grande avanço na simplificação da rede IP, é uma maneira mais flexível e escalável de fazer roteamento de origem (“anexar figura”). Onde um nó de ingresso (fonte) escolhe um caminho, ou seja, uma lista ordenada de segmentos, e anexa no cabeçalho do pacote, os nós subsequentes na rede executam as instruções codificadas.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Por exemplo, instruções de encaminhamento: encaminhar um pacote a um destino ou interface específica. Essa forma de encaminhamento de pacotes é uma tecnologia nova que vem agregar benefícios às redes IP, MPLS, IPv6, etc. Como veremos na seção "Como funciona".
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								No segment routing:
+							</p>
+							<ul class="listItems">
+								<li>A fonte escolhe um caminho e o codifica no cabeçalho do pacote como uma lista ordenada de segmentos. Os segmentos são identificadores para qualquer tipo de instrução;</li>
+								<li>Cada segmento é identificado pelo ID do segmento (SID) que consiste em um inteiro de 32 bits sem sinal;</li>
+							</ul>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								A instrução de segmento pode ser:
+							</p>
+							<ul class="listItems">
+								<li>Ir para o nó N usando o caminho mais curto;</li>
+								<li>Vá para o nó N no caminho mais curto para o nó M e depois siga os links Camada 1, Camada 2 e Camada 3;</li>
+								<li>Aplicar serviço S.</li>
+							</ul>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Com essa forma de roteamento de segmento, a rede não precisa mais manter um estado por aplicação e por fluxo, reduzindo estados, pesquisas, etc. Em vez disso, ele obedece as instruções de encaminhamento fornecidas no pacote. Dessa forma ajudando os operadores da rede a evitarem o congestionamento de tráfego e também direcionando os nós por outros caminhos de acordo com os requisitos ou estado que se encontra a rede.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Apesar de já ser possível perceber algumas das vantagens que um sistema como este pode
+							nos proporcionar, é necessário formalizá-las. Para tal, vamos observar cada característica de um sistema SR e tentar identificar suas implicações.</p>
+
+
+							<h3>Características e seus Benefícios</h3>
+							<p class="paragraphText"><span class="spaceTab"></span>O website mantido pela Cisco Systems entitulado "<i>https://www.segment-routing.net/</i>" cita diversas características
+							referentes ao Segment Routing (SR). Ao analisarmos cada uma delas, podemos extrair seus benefícios:
+							<ul class="listItems">
+								<li><u>Simples:</u> O roteamento de segmento fornece controle total sobre os caminhos de encaminhamento combinando instruções simples de rede. Não requer nenhum protocolo adicional. De fato, em alguns casos, ele remove protocolos desnecessários que simplificam sua rede;</li>
+								<li><u>escalabilidade:</u> o roteamento de segmento não requer nenhuma sinalização de caminho. Portanto, o estado por fluxo só precisa ser mantido no nó de ingresso do domínio SR, aumentando a flexibilidade da sua rede enquanto reduz o custo;</li>
+								<li><u>Engenharia de tráfego (TE-Traffic Engineering):</u> o roteamento de segmento pode ser usado para direcionar o tráfego ao longo de qualquer caminho arbitrário na rede. Isso permite que os operadores imponham caminhos de baixa latência e / ou disjuntos, independentemente dos caminhos normais de encaminhamento. O SR consegue isso sem qualquer sinalização adicional ou ponto médio do estado da malha;</li>
+								<li><u>Implantação sem emenda:</u> O roteamento de segmentos é executado nativamente em um plano de dados MPLS ou IPv6. Uma simples atualização de software permitirá que seu hardware o execute. Além disso, o roteamento de segmentos pode coexistir com a rede LDP existente, tornando a migração indolor;</li>
+							</ul>
+							<p class="paragraphText"><span class="spaceTab"></span>Apesar da lista de características e benefícios de uma rede Par-a-Par ser bastante extensa, logo começam a ficar claros os desafios que
+							acabam surgindo junto com sua implementação. Tendo em mãos definições um pouco mais formais, podemos começar a entender como funciona a arquitetura SR.</p>
+
+						</section>
+
+				</div>
+			</section>
+
+
+
+		<!-- Footer -->
+			<footer id="footer">
+
+				<span class="copyright">
+					&copy; Copyright. Todos os direitos reservados. Template por <a href="http://www.html5webtemplates.co.uk">Responsive Web Templates</a>
+					<br>Autores deste website: Weslley Ferreira, Raul Baptista de Souza.
+					<br>Sob orientação do professor Luís Henrique Kosmalski Costa, da disciplina Redes de Computadores II (EEL879).
+				</span>
+			</footer>
+
+	</body>
+</html>
