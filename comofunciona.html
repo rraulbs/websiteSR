@@ -35,7 +35,7 @@
 						<li><a href="introducao.html">Introdução</a></li>
 						<li><a href="aplicacoes.html">Como funciona</a></li>
 						<li><a href="arquitetura.html">Arquitetura</a></li>
-						<li><a href="grafos.html">Glossário</a></li>
+						<li><a href="glossario.html">Glossário</a></li>
 						<li><a href="questoes.html">Questões</a></li>
 						<li><a href="bibliografia.html">Bibliografia</a></li>
 					</ul>
@@ -46,64 +46,88 @@
 			<section id="main" class="wrapper style1">
 				<header class="major">
 					<h2>Como funciona Segment Routing</h2>
-					<p>...</p>
+					<p>O software define a rede</p>
 				</header>
 				<div class="container">
 
 					<!-- Content -->
 						<section id="content">
-							<a href="#" class="image fit"><img src="images/ .png" alt="" class="headerImage"/></a>
-							<h3>Titulo</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<a href="#" class="image fit"><img src="images/comofunciona_image1.png" alt="" class="headerImage"/></a>
+							<h3>A rede está em constante crescimento</h3>
+							<p class="paragraphText"><span class="spaceTab"></span>Como vimos anteriormente, nos últimos anos, a rede cresceu enormemente e se tornou muito complexa.
+								O mundo das redes agora é impulsionado por um conjunto completamente diferente de necessidades de negócios, como a capacidade de utilizar cada link de rede
+								totalmente, alto desempenho, escalabilidade, flexibilidade, alta disponibilidade, simplicidade de operação e assim por diante. Esse requisito alterado exige
+								a necessidade de automatizar e gerenciar a rede por software, isto é, <b><i><u>o software define a rede</u></i></b>, com esse requisito, a arquitetura de
+								roteamento por segmento passou a existir.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>O roteamento por segmento evoluiu a partir do MPLS e, para entender o MPLS, é essencial entender o
+								roteamento IP. No roteamento IP, um conjunto de protocolos determina o caminho para o pacote seguir da origem até o destino através de uma série de roteadores
+								em várias redes. Esses protocolos incluem:
+							</p>
+							<ul class="listItems">
+								<li><u>BGP (Border Gateway Protocol)</u></li>
+								<li><u>IS-IS (Sistema Intermediário - Sistema Intermediário)</u></li>
+								<li><u>OSPF (primeiro caminho mais curto aberto)</u></li>
+								<li><u>RIP (Protocolo de Informações de Roteamento)</u></li>
+							</ul>
+							<a href="#" class="image fit"><img src="images/comofunciona_image3.png" alt="" class="headerImage"/></a>
+							<p class="paragraphText"><span class="spaceTab"></span>Exemplo: como um pacote é encaminhado no roteamento IP</p>
 							<p class="paragraphText"><span class="spaceTab"></span>...</p>
 							<a href="#" class="image text"><img src="images/.png" alt="" ></a>
 
 							<br>
 							<br>
 
-							<h3>Titulo2</h3>
+							<h3>Multi-Protocol Label Switching or MPLS</h3>
 
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>MPLS é um mecanismo de encaminhamento baseado em rótulos (labels). Um rótulo nada mais é
+								do que um simples número binário usado pela tabela de encaminhamento do dispositivo receptor para determinar a interface de saída para o próximo salto.
+								O rótulo de entrada é trocado pelo rótulo de saída e o pacote é encaminhado para o próximo dispositivo. O processo é repetido até que o pacote
+								chegue ao seu destino. O MPLS possui 2 tipos de roteadores:
+							</p>
+								<ul class="listItems">
+									<li><u>Label edge router (LER):</u> São roteadores responsáveis pela atribuição de rótulos no pacote de dados.</li>
+									<li><u>Label switch router (LSR):</u> São roteadores responsáveis pela comutação de rótulos.</li>
+								</ul>
+							<p class="paragraphText"><span class="spaceTab"></span>Exemplo_1: LER e LSR....</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Exemplo_2: ...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Exemplo_3: ...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>A nova necessidade comercial de aplicativos que podem direcionar o comportamento da rede
+								não é fácil de obter em uma infraestrutura de rede IP pura. O roteamento IP carece de flexibilidade, controle de caminho e apresenta alguns problemas
+								de desempenho. Alguns dos problemas com o roteamento IP podem ser resolvidos em uma infraestrutura de rede MPLS pura. O MPLS é mais flexível, a engenharia
+								de tráfego é mais fácil de implementar e os pacotes são encaminhados no caminho predefinido com base no rótulo atribuído ao pacote.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>No entanto, o custo de manutenção de um plano de controle mais complexo é alto com o MPLS.
+								A solução para resolver esses problemas é conectar todos os nós em uma rede a um controlador e fazê-los falar um protocolo comum.
+								Só precisamos gerenciar o roteador de origem ou o controlador, o que torna a infraestrutura mais programável e escalável.
+								Essa resposta deu origem à arquitetura de roteamento de segmento que é muito mais flexível, escalável, menos complexa e mais fácil de operar do que o
+								IP Routing ou MPLS.
+							</p>
+
+
+							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
+
+							<br>
+							<br>
+
+							<h3>Segment Routing</h3>
+							<p class="paragraphText"><span class="spaceTab"></span>•	Os segmentos indicam basicamente o caminho exato que o pacote deve seguir na rede.
+								Ou, em termos mais simples, os segmentos são as instruções que o pacote deve seguir para alcançar seu destino. Uma coisa importante a ser
+								observada aqui é que o estado de encaminhamento completo do fluxo de tráfego está no pacote e não na rede.
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Exemplo...</p>
 
 							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
 
 							<br>
 							<br>
 
-							<h3>Titulo3</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-
-							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
-
-							<br>
-							<br>
-
-							<h3>Título 4</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<h3>Título</h3>
 							<p class="paragraphText"><span class="spaceTab"></span>...</p>
 							<p class="paragraphText"><span class="spaceTab"></span>...</p>
 							<p class="paragraphText"><span class="spaceTab"></span>...</p>
 							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
 
-							<br>
-							<br>
-
-							<h3>Título 5</h3>
-							<h4>-Como ...</h4>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-
-							<h4>-Como ...</h4>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-
-							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
 						</section>
 
 				</div>

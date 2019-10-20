@@ -35,7 +35,7 @@
 						<li><a href="introducao.html">Introdução</a></li>
 						<li><a href="comofunciona.html">Como funciona</a></li>
 						<li><a href="arquitetura.html">Arquitetura</a></li>
-						<li><a href="grafos.html">Glossário</a></li>
+						<li><a href="glossario.html">Glossário</a></li>
 						<li><a href="questoes.html">Questões</a></li>
 						<li><a href="bibliografia.html">Bibliografia</a></li>
 					</ul>
@@ -88,6 +88,14 @@
 							<ul class="listItems">
 								<li>A fonte escolhe um caminho e o codifica no cabeçalho do pacote como uma lista ordenada de segmentos. Os segmentos são identificadores para qualquer tipo de instrução;</li>
 								<li>Cada segmento é identificado pelo ID do segmento (SID) que consiste em um inteiro de 32 bits sem sinal;</li>
+							</ul>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Os segmentos podem ser divididos em:
+							</p>
+							<ul class="listItems">
+								<li>Segmentos de Nó </li>
+								<li>Segmentos de Adjacência</li>
+								<li>Segmento Local: suportado apenas no nó que foi gerado, nenhum outro nó pode instalar este SID em sua FIB.</li>
 							</ul>
 							<p class="paragraphText"><span class="spaceTab"></span>
 								A instrução de segmento pode ser:
