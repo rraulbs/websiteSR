@@ -46,7 +46,7 @@
 			<section id="main" class="wrapper style1">
 				<header class="major">
 					<h2>Introdução</h2>
-					<p>Definições e desafios do Segment Routing</p>
+					<p>Definições e conceitos introdutórios sobre Segment Routing</p>
 				</header>
 				<div class="container">
 
@@ -55,20 +55,33 @@
 							<a href="#" class="image fit"><img src="images/world.jpg" alt="" class="headerImage"/></a>
 							<h3>Um Mundo mais conectado e novos desafios</h3>
 							<p class="paragraphText"><span class="spaceTab"></span>
-								Nas últimas décadas observamos o surgimento de diversas novas tecnologias que vem se popularizando cada vez mais em nosso cotidiano, como o 5G, Internet das coisas (IoT), Inteligência Artificial (IA), entre outras. E com elas, tais tecnologias trazem consigo novas necessidades como a demanda de uma maior capacidade de computação, visto que a borda da rede está crescendo continuamente. Tal crescimento vem aumentando a pressão sobre a conectividade IP e os protocolos que gerem a internet atualmente. Essa pressão exige a criação de novas soluções e implementações para lidar com os novos desafios da rede.
+								Nas últimas décadas observamos o surgimento de diversas novas tecnologias que vem se popularizando cada vez mais em nosso cotidiano, como o <b>5G</b>,
+								Internet das coisas (<b>IoT</b>), Inteligência Artificial (<b>IA</b>), entre outras. E com elas, tais tecnologias trazem consigo novas necessidades como a demanda
+								de uma maior capacidade de computação, visto que a borda da rede está crescendo continuamente. Tal crescimento vem aumentando a pressão sobre a
+								conectividade IP e os protocolos que gerem a internet atualmente. Essa pressão exige a criação de novas soluções e implementações para lidar com
+								os novos desafios da rede.
 							</p>
 							<div class="4u 6u(3) centerImage size1"><span class=" image fit"><img src="images/overview.png" alt="" /></span></div>
 							<p  class="paragraphText"><span class="spaceTab"></span>
 								Nas redes IP tradicionais, decisões de encaminhamento de pacotes são realizadas <i>salto-por-salto</i> (hop-by-hop) com roteadores que realizam pesquisas de rota a cada nó. Essas redes IP usam <b>IGP</b> (Interior Gateway Protocol), que são construídos para tomar decisões de encaminhamento de pacotes com base em um custo de caminho atribuído especificado. Os pacotes com origem e/ou destino semelhantes seguirão a mesma rota, resultando em congestionamento, mesmo se os caminhos opcionais estiverem subutilizados ou até mesmo ociosos
 							</p>
 							<p class="paragraphText"><span class="spaceTab"></span>
-								Tentando resolver esse problema, o TE (Traffic Engineering) foi introduzido e, em vez de as decisões de encaminhamento serem tomadas em uma base hop-by-hop, os roteadores de entrada determinam o caminho da origem até destino para cada fluxo de tráfego específico. Dessa forma, o tráfego que tomaria um caminho de baixo custo, porém congestionado, agora pode ser direcionado para rotas subutilizadas. Em outras palavras, executa o "balanceamento de carga" de tráfego.
+								Tentando resolver esse problema, o <b>TE</b> (Traffic Engineering) foi introduzido e, em vez de as decisões de encaminhamento serem tomadas em uma base
+								hop-by-hop, os roteadores de entrada determinam o caminho da origem até destino para cada fluxo de tráfego específico. Dessa forma, o tráfego que
+								tomaria um caminho de baixo custo, porém congestionado, agora pode ser direcionado para rotas subutilizadas. Em outras palavras, executa o
+								"balanceamento de carga" de tráfego.
 							</p>
 							<p class="paragraphText"><span class="spaceTab"></span>
-								O RSVP (Resource Reservation Protocol, ou protocolo para reserva de recursos de rede) também foi introduzido para reservar recursos fim a fim ao longo do caminho de fluxo de tráfego em uma rede IP. O protocolo de sinalização RSVP foi ampliado com recursos MPLS (Multi-Protocol Label Switch) para admitir MPLS-TE, permitindo que o RSVP configure uma rota de rede utilizando etiqueta LSP (Label Switched Path), em uma rede MPLS-TE com extensão RSVP-TE.
+								O <b>RSVP</b> (Resource Reservation Protocol, ou protocolo para reserva de recursos de rede) também foi introduzido para reservar recursos fim a
+								fim ao longo do caminho de fluxo de tráfego em uma rede IP. O protocolo de sinalização RSVP foi ampliado com recursos <b>MPLS</b>
+								(Multi-Protocol Label Switch) para admitir MPLS-TE, permitindo que o RSVP configure uma rota de rede utilizando etiqueta <b>LSP</b>
+								(Label Switched Path), em uma rede MPLS-TE com extensão RSVP-TE.
 							</p>
 							<p class="paragraphText"><span class="spaceTab"></span>
-								A tecnologia preferida atualmente para que as operadoras de rede desenhem e implantem redes MPLS com engenharia de tráfego é o RSVP-TE. O problema é que O LDP (Label Distribution Protocol), e especificamente o RSVP-TE, são protocolos complicados para implementar, manter, operar e solucionar problemas quando as coisas dão errado. Eles geram muita sinalização na rede, têm uma visão limitada da topologia da rede e inundam a rede com túneis MPLS.
+								A tecnologia preferida atualmente para que as operadoras de rede desenhem e implantem redes MPLS com engenharia de tráfego é o RSVP-TE.
+								O problema é que O <b>LDP</b> (Label Distribution Protocol), e especificamente o RSVP-TE, são protocolos complicados para implementar, manter,
+								operar e solucionar problemas quando as coisas dão errado. Eles geram muita sinalização na rede, têm uma visão limitada da topologia da
+								rede e inundam a rede com túneis MPLS.
 							</p>
 							<p class="paragraphText"><span class="spaceTab"></span>
 								As operadoras de rede, portanto, necessitam de uma equipe de operações altamente qualificada para suportar arquiteturas de rede RSVP-TE. E escalar redes RSVP-TE pode rapidamente se tornar uma tarefa difícil e algumas vezes inviável.
@@ -76,30 +89,46 @@
 
 							<h3>O que é Segment Routing?</h3>
 							<p class="paragraphText"><span class="spaceTab"></span>
-								Segment Routing (SR) ou roteamento por segmento, é uma tecnologia moderna de roteamento de origem que vem sendo desenvolvida por grupos de trabalho do SPRING e IPv6 do IETF.
-								Essa arquitetura de roteamento de origem, traz um grande avanço na simplificação da rede IP, é uma maneira mais flexível e escalável de fazer roteamento de origem (“anexar figura”). Onde um nó de ingresso (fonte) escolhe um caminho, ou seja, uma lista ordenada de segmentos, e anexa no cabeçalho do pacote, os nós subsequentes na rede executam as instruções codificadas.
+								Segment Routing (SR) ou roteamento por segmento, é uma tecnologia moderna de roteamento de origem que vem sendo desenvolvida por grupos de trabalho
+								do SPRING e IPv6 do IETF.	Essa arquitetura de roteamento de origem, traz um grande avanço na simplificação da rede IP, e é uma maneira mais flexível
+								e escalável de fazer roteamento de origem (“anexar figura”). Onde um nó de ingresso (fonte) escolhe um caminho, ou seja, uma lista ordenada de
+								segmentos, e anexa no cabeçalho do pacote. Os nós subsequentes na rede executam as instruções codificadas. Por exemplo, instruções de encaminhamento:
+								encaminhar um pacote a um destino ou interface específica. Essa forma de encaminhamento de pacotes é uma tecnologia nova que vem agregar benefícios
+								às redes IP/MPLS, IPv6, etc. Como veremos na seção "Como funciona".
+
 							</p>
-							<p class="paragraphText"><span class="spaceTab"></span>
-								Por exemplo, instruções de encaminhamento: encaminhar um pacote a um destino ou interface específica. Essa forma de encaminhamento de pacotes é uma tecnologia nova que vem agregar benefícios às redes IP, MPLS, IPv6, etc. Como veremos na seção "Como funciona".
-							</p>
-							<p class="paragraphText"><span class="spaceTab"></span>
-								No segment routing:
-							</p>
+							<p><b><u>Sintetizando:</u></b></p>
 							<ul class="listItems">
-								<li>A fonte escolhe um caminho e o codifica no cabeçalho do pacote como uma lista ordenada de segmentos. Os segmentos são identificadores para qualquer tipo de instrução;</li>
-								<li>Cada segmento é identificado pelo ID do segmento (SID) que consiste em um inteiro de 32 bits sem sinal;</li>
+								<li>SR é um protocolo de roteamento suportado por aplicação de Redes definidas por Software para a definição de caminhos de forma eficiente e automatizada; </li>
+								<li>SR é um protocolo de roteamento pela origem. Ou seja, a origem codifica no cabeçalho do pacote a lista de segmentos a serem percorridos pelos pacotes até o destino; </li>
+								<li>SR não necessita da manutenção de estados por fluxo dentro da rede, reduzindo a complexidade dos planos de controle e dados;</li>
+								<li>SR permite a configuração, a modificação e a remoção de caminhos TE dentro de um domínio de rede, operando somente na borda da rede. TE - Engenharia de tráfego é um exemplo de aplicação dentro do contexto de roteamento por segmentos;</li>
+								<li>O plano de controle de roteamento por segmentos pode ser mantido de forma centralizada ou distribuída.</li>
 							</ul>
-							<p class="paragraphText"><span class="spaceTab"></span>
-								Os segmentos podem ser divididos em:
-							</p>
+
+							<p><b><u>Segmento:</u></b></p>
+
 							<ul class="listItems">
-								<li>Segmentos de Nó </li>
-								<li>Segmentos de Adjacência</li>
-								<li>Segmento Local: suportado apenas no nó que foi gerado, nenhum outro nó pode instalar este SID em sua FIB.</li>
+								<li>É um identificador genérico para qualquer tipo de instrução: um serviço, contexto, localizador ou um caminho baseado no IGP ou no BGP;</li>
+								<li>É identificado pelo ID do segmento (<b>SID</b>) que consiste em um inteiro de 32 bits sem sinal; <br/> <b>SID</b> (Segment Routing Identifier): É o identificador de segmento, em redes MPLS, o SID é um rótulo MPLS. A cadeia de SIDs é chamada de caminhos de roteamento por segmentos (segmente Routing – SR path);</li>
+								<li>É representado por um índice local ou global. Por exemplo: uma lista de segmentos para a rede de roteadores de núcleo IP/MPLS é representada por uma pilha de rótulos (Label stack), enquanto no IPV6 é representada pela extensão do cabeçalho para roteamento.</li>
 							</ul>
-							<p class="paragraphText"><span class="spaceTab"></span>
-								A instrução de segmento pode ser:
-							</p>
+
+							<p><b><u>
+								Tipos de segmentos:
+							</u></b></p>
+
+							<ul class="listItems">
+								<li>Segmentos de Nó: possui numeração única e global, o prefixo SID, retirado do <b>SRGB</b> (Segment Routing Global Block);</li>
+								<li>Segmentos de Adjacência: possui significado local e está relacionado a uma ou mais adjacências do nó. Têm rótulo no formato 240xy para uma determinada adjacência xy;
+ </li>
+								<li>Segmento Local: suportado apenas no nó que foi gerado, nenhum outro nó pode instalar este SID em sua <b>FIB</b>.</li>
+							</ul>
+
+							<p><b><u>
+								Tipos de instruções:
+							</u></b></p>
+
 							<ul class="listItems">
 								<li>Ir para o nó N usando o caminho mais curto;</li>
 								<li>Vá para o nó N no caminho mais curto para o nó M e depois siga os links Camada 1, Camada 2 e Camada 3;</li>
@@ -116,13 +145,14 @@
 							<p class="paragraphText"><span class="spaceTab"></span>O website mantido pela Cisco Systems entitulado "<i>https://www.segment-routing.net/</i>" cita diversas características
 							referentes ao Segment Routing (SR). Ao analisarmos cada uma delas, podemos extrair seus benefícios:
 							<ul class="listItems">
-								<li><u>Simples:</u> O roteamento de segmento fornece controle total sobre os caminhos de encaminhamento combinando instruções simples de rede. Não requer nenhum protocolo adicional. De fato, em alguns casos, ele remove protocolos desnecessários que simplificam sua rede;</li>
-								<li><u>escalabilidade:</u> o roteamento de segmento não requer nenhuma sinalização de caminho. Portanto, o estado por fluxo só precisa ser mantido no nó de ingresso do domínio SR, aumentando a flexibilidade da sua rede enquanto reduz o custo;</li>
-								<li><u>Engenharia de tráfego (TE-Traffic Engineering):</u> o roteamento de segmento pode ser usado para direcionar o tráfego ao longo de qualquer caminho arbitrário na rede. Isso permite que os operadores imponham caminhos de baixa latência e / ou disjuntos, independentemente dos caminhos normais de encaminhamento. O SR consegue isso sem qualquer sinalização adicional ou ponto médio do estado da malha;</li>
-								<li><u>Implantação sem emenda:</u> O roteamento de segmentos é executado nativamente em um plano de dados MPLS ou IPv6. Uma simples atualização de software permitirá que seu hardware o execute. Além disso, o roteamento de segmentos pode coexistir com a rede LDP existente, tornando a migração indolor;</li>
+								<li><b><u>Simples:</u></b> O roteamento de segmento fornece controle total sobre os caminhos de encaminhamento combinando instruções simples de rede. Não requer nenhum protocolo adicional. De fato, em alguns casos, ele remove protocolos desnecessários que simplificam sua rede;</li>
+								<li><b><u>escalabilidade:</u></b> o roteamento de segmento não requer nenhuma sinalização de caminho. Portanto, o estado por fluxo só precisa ser mantido no nó de ingresso do domínio SR, aumentando a flexibilidade da sua rede enquanto reduz o custo;</li>
+								<li><b><u>Engenharia de tráfego (TE-Traffic Engineering):</u></b> o roteamento de segmento pode ser usado para direcionar o tráfego ao longo de qualquer caminho arbitrário na rede. Isso permite que os operadores imponham caminhos de baixa latência e / ou disjuntos, independentemente dos caminhos normais de encaminhamento. O SR consegue isso sem qualquer sinalização adicional ou ponto médio do estado da malha;</li>
+								<li><b><u>Implantação sem emenda:</u></b> O roteamento de segmentos é executado nativamente em um plano de dados MPLS ou IPv6. Uma simples atualização de software permitirá que seu hardware o execute. Além disso, o roteamento de segmentos pode coexistir com a rede LDP existente, tornando a migração indolor;</li>
 							</ul>
-							<p class="paragraphText"><span class="spaceTab"></span>Apesar da lista de características e benefícios de uma rede Par-a-Par ser bastante extensa, logo começam a ficar claros os desafios que
-							acabam surgindo junto com sua implementação. Tendo em mãos definições um pouco mais formais, podemos começar a entender como funciona a arquitetura SR.</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Apesar da lista de características e benefícios desse protocolo de roteamento (SR) ser bastante
+								extensa, logo começam a ficar claros os desafios que acabam surgindo junto com sua implementação. Tendo em mãos definições um pouco mais formais,
+								podemos começar a entender como funciona o rotemaneto por segmento.</p>
 
 						</section>
 

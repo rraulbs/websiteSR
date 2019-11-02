@@ -46,22 +46,159 @@
 			<section id="main" class="wrapper style1">
 				<header class="major">
 					<h2>Arquitetura</h2>
-					<p>Princípios, modelos e algoritmos de funcionamento</p>
+					<p>Keep the good stuff; remove the tedious stuff</p>
 				</header>
 				<div class="container">
 
 					<!-- Content -->
 						<section id="content">
-							<a href="#" class="image fit"><img src="images/p2p_model.png" alt="" class="headerImage"/></a>
-							<h3>SR</h3>
-							<p class="paragraphText"><span class="spaceTab"></span> Segment Routing (SR) é uma arquitetura de redes em que...
+							<a href="#" class="image fit"><img src="images/arquitetura.png" alt="" class="headerImage"/></a>
+
+							<h3>SR - Arquitetura:</h3>
+
+							<ul class="listItems">
+								<li><b><u>Plano de serviços</u></b>: a ideia é manter toda a diversidade de serviços.</li>
+								<li><b><u>Plano de controle (software)</u></b>: OSPF/IS-IS/BGP são usados para anunciar informações do segmento.</li>
+								<li><b><u>Plano de dados (hardware)</u></b>: reusa MPLS e IPv6.</li>
+							</ul>
+
+							<p><b><u>Plano de Controle X Plano de dados:</u></b></p>
+
+							<ul class="listItems">
+								<li>Plano de controle é responsável pela inteligência da rede, ou seja,
+								ele define as próximas rotas do fluxo de pacotes na rede, podendo rodar, por exemplo, um protocolo de roteamento ou algo parecido.</li>
+								<li>Plano de dados é responsável por encaminhar pacotes na rede, ou seja, ele simplesmente encaminha os pacotes para seu destino que é
+									determinado pelo plano de controle.</li>
+							</ul>
+
+							<h3>Plano de dados</h3>
+
+							<p>
+								<b><u>Redes MPLS com SR</b></u>: utiliza o plano de encaminhamento de dados do MPLS.
 							</p>
 
-							<h3>Titulo</h3>
+
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th>Características</th>
+											<th>Rede MPLS com SR</th>
+											<th>Rede MPLS sem SR</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Transporte MPLS básico</td>
+											<td>IGP</td>
+											<td>IGP + LDP</td>
+										</tr>
+										<tr>
+											<td>Túneis TE adicionais para suportar FRR</td>
+											<td>Não precisa</td>
+											<td>Precisa</td>
+										</tr>
+										<tr>
+											<td>Sincronismo entre o LDP/IGP</td>
+											<td>Não se aplica</td>
+											<td>Difícil de gerenciar</td>
+										</tr>
+										<tr>
+											<td>Estados apenas no head-end do TE</td>
+											<td>Sim</td>
+											<td>Não. No pior caso: complexidade O(N^2) nos pontos intermediários</td>
+										</tr>
+										<tr>
+											<td>Otimização de caminho de backup</td>
+											<td>Sim</td>
+											<td>Não.</td>
+										</tr>
+										<tr>
+											<td>Interoperabilidade com a rede MPLS tradicional</td>
+											<td>Sim</td>
+											<td>Não se aplica</td>
+										</tr>
+										<tr>
+											<td>Projetado para SDN</td>
+											<td>Sim</td>
+											<td>Não</td>
+										</tr>
+										<tr>
+											<td>Comutação FRR em 50ms</td>
+											<td>IGP</td>
+											<td>IGP + LDP</td>
+										</tr>
+										<tr>
+											<td>ECMP para criação de túneis TE</td>
+											<td>Sim</td>
+											<td>Não</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<p>
+								O SR possui as seguintes funcionalidades:
+							</p>
+							<ul class="listItems">
+								<li><b><u>PHP (penultimate Hop Popping)</u></b>: A função realiza um processo no qual o rótulo mais externo do pacote é removido por um LSR,
+									antes que o pacote seja passado para um LER adjacente. Essa função é importante em ambientes VPN MPLS de camada 3. Uma das vantagens é reduzir a
+									carga no LER. </br>Caso essa função estivesse desabilitada o LER teria que realizar pelo menos duas pesquisas de rótulo: <br>
+									1 - O rótulo mais externo, identificando que o pacote estava destinado a ter esse rótulo removido nesse roteador;</br>
+									2 - O rótulo interno, para identificar qual instância de roteamento e encaminhamento virtual (VRF) a ser usada na pesquisa de roteamento IP
+									subsequente.</li>
+								<li><b><u>Rótulos explicit-null</u></b>: Um valor de 0 representa o rótulo Explicit NULL Label do IPv4. Essa etiqueta indica que a pilha de rótulos
+									deve ser removida, e o encaminhamento de pacote deve ser baseado no cabeçalho do IPv4. Isso ajuda a manter os bits Exp seguros até o roteador de saída.
+									É usado em QoS baseado em MPLS. </li>
+									<a href="#" class="image text"><img src="images/arquitetura_image3.png" alt=""></a>
+							</ul>
+
+							<p>
+								<b><u>Exemplo - SR-Plano de dados MPLS</b></u>: Na imagem podemos ver que o roteador 3 é o penúltimo salto (PHP), então uma operação de remoção do
+								rótulo mais externo é efetuada e o pacote chega ao roteador 4, de destino, sem o rótulo baseado no endereço IP. E a opção explicit-null é configurável
+								para um prefixo SID. No exemplo, a LIB do roteador 3, no rótulo de saída (Label Out) seria explicit null, sendo útil para repassar os EXP bits do LSR 3
+								para o LER 4.
+							</p>
+							<a href="#" class="image fit"><img src="images/arquitetura_image4.png" alt="" class="headerImage"/></a>
+
+							<p>
+								<b><u>Redes IPv6 com SR</b></u>:
+							</p>
+
+							<ul class="listItems">
+								<li>A lista de segmentos está codificada na extensão do cabeçalho para roteamento pela fonte;</li>
+								<li>A lista de segmentos pode ser baseada no IGP ou BGP;</li>
+								<li>Não necessita de atualização de toda a rede, pode operar com ou sem SR, possibitando a adoção gradual da tecnologia.</li>
+							</ul>
+
+
+							<p>
+								<b><u>Campos - cabeçalho do IPv6 (Segment Routing Header - SRH)</u></b>:
+							</p>
+
+							<ul class="listItems">
+								<li><b>Next Header</b>: é um seletor de 8 bits que identifica o tipo de cabeçalho imediatamente seguido pelo SRH;</li>
+								<li><b>Hdr Ext Len</b>: define o tamanho do cabeçalho de SRH em octectos, descontando os primeiro oito octetos;</li>
+								<li><b>Routing Type</b>: ainda depende de definição pelo IETF;</li>
+								<li><b>Segments Left</b>: contém o índice da lista de segmentos, indicando o próximo a ser inspecionado. É decrementado a cada inspeção;</li>
+								<li><b>Last Entry</b>: é um “offset” no SRH, não incluindo os 8 primeiros octetos. É expresso em múltiplos de 16 octetos apontando para o
+									último elemento da lista de segmentos. Representa o primeiro segmento da lista;</li>
+								<li><b>Flags</b>: 16 bits para flags. Os bits de 4 a 15 definem o tipo de codificação dos endereços IPv6 na lista de políticas (Policy List);</li>
+								<li><b>Segment List[n]</b>: é o endereço IPv6 que representa cada segmento do caminho. A lista de segmentos é codificada de forma reversa, ou seja,
+									o último segmento é o primeiro da lista.</li>
+							</ul>
+
+							<a href="#" class="image fit"><img src="images/arquitetura_image5.png" alt="" class="headerImage"/></a>
+
+							<p>
+								<b><u>Exemplo - SR-Plano de dados IPv6</u></b>:
+							</p>
+
+							<h3>Bloco Global de Roteamento por Segmentos (SRGB)</h3>
 
 							<a href="#" class="image text"><img src="images/scalability.png" alt=""></a>
 
-							<h3>Titulo</h3>
+							<h3>Plano de Controle IGP do SR: IS-IS e OSPF</h3>
 							<p class="paragraphText"><span class="spaceTab"></span>...</p>
 							<p class="paragraphText"><span class="spaceTab"></span>...</p>
 							<a href="#" class="image text"><img src="images/Overlay_p2p.jpg" alt=""></a>
@@ -71,8 +208,7 @@
 
 							<h3>Conclusão</h3>
 							<p class="paragraphText"><span class="spaceTab"></span>Esperamos que este trabalho, envolvendo Redes de Computadores, tenha ajudado a ampliar o
-								entendimento do leitor sobre Segment Routing. Apesar dos poucos exemplos e ser uma breve introdução, isto se deve à pouca disponibilidade de dados
-								encontrados. Que esta pesquisa possa servir de ponto de partida para inspirar e propagar conhecimento.
+								entendimento do leitor sobre Segment Routing. Apesar dos poucos exemplos e ser uma breve introdução, que esta pesquisa possa servir de ponto de partida para inspirar e propagar conhecimento.
 							</p>
 
 

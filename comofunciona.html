@@ -111,22 +111,42 @@
 							<br>
 
 							<h3>Segment Routing</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>•	Os segmentos indicam basicamente o caminho exato que o pacote deve seguir na rede.
+							<p class="paragraphText"><span class="spaceTab"></span>	Os segmentos indicam basicamente o caminho exato que o pacote deve seguir na rede.
 								Ou, em termos mais simples, os segmentos são as instruções que o pacote deve seguir para alcançar seu destino. Uma coisa importante a ser
 								observada aqui é que o estado de encaminhamento completo do fluxo de tráfego está no pacote e não na rede.
 							</p>
-							<p class="paragraphText"><span class="spaceTab"></span>Exemplo...</p>
 
-							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
+							<ul class="listItems">
+								<li>O SR possui operações similares aos das redes IP/MPLS convencionais, o
+									empilhamento de rótulos MPLS descreve o caminho pelo qual o pacote deve seguir, ou seja, a lista de seguimentos no cabeçalho do pacote;</li>
+								<li>No SR <u><b>não</b> existem estados por fluxo</u> nos roteadores intermediários, utiliza-se apenas o IGP, logo <u>dispensa o protocolo de distribuição
+									de rótulos (LDP)</u> necessário em uma rede IP/MPLS convencional;</li>
+								<li>O roteador de origem conhece todos os identificadores (SIDs) para alcançar o destino, portanto os <u>estados por fluxo são mantidos apenas na origem</u>;</li>
+								<li>Quantidade de entradas na tabela SR-FIB em um nó qualquer: <b>N + A</b>. <br/>N = Número de Segmentos de Nó <br/> A = Número de Segmentos de Adjacências)</li>
+								<li>Segmento ativo: <br/> Redes MPLS: segmento ativo é o rótulo mais externo. </br> Redes IPv6: segmento ativo é um ponteiro para o SID.</li>
+							</ul>
 
-							<br>
-							<br>
+							<p>
+								<u><b>Exemplo - Redes MPLS</u></b>: Encaminhamento de pacote do nó de origem (1) até no de destino (5)
+							</p>
+							<a href="#" class="image fit"><img src="images/comofunciona_image4.png" alt="" class="headerImage"/></a>
 
-							<h3>Título</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
+							<p>
+								<u><b>Operações</b></u> <br/> No SR podemos realizar as seguintes operações:
+							</p>
+							<ul class="listItems">
+								<li><b>PUSH</b>: Inserção em uma lista de segmentos. <br/>Redes MPLS: significa	inserção do rótulo na pilha. <br/> Redes IPv6: significa inserir o SID
+									na primeira posição e redirecionar o ponteiro o topo da lista.</li>
+								<li><b>NEXT</b>: Ativa o próximo segmento da lista, pois o atual está completo. <br/> Em redes MPLS: significa remover o rótulo mais externo. <br/>
+									Em redes IPv6: significa incrementar o ponteiro.</li>
+								<li><b>CONTINUE</b>: Continuação do atual segmento ativo, mesmo sem estar completo. <br/> Em redes MPLS: há correspondência com o processo de comutação de rótulos.
+									Logo, se o próximo salto está no mesmo SRGB, o valor do rótulo é mantido. <br/> Em redes IPv6: significa não incrementar o ponteiro.</li>
+							</ul>
+							<p>
+								<u><b>Exemplo - Operações</b></u>: Continuando na topologia da rede do exemplo da figura anterior, agora podemos observar as operações sendo executadas durante cada etapa no encaminhamento
+								do pacote do nó de origem (1) até o nó de destino (5):
+							</p>
+							<a href="#" class="image fit"><img src="images/comofunciona_image5.png" alt="" class="headerImage"/></a>
 
 						</section>
 
