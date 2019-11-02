@@ -194,17 +194,97 @@
 								<b><u>Exemplo - SR-Plano de dados IPv6</u></b>:
 							</p>
 
+							<a href="#" class="image fit"><img src="images/arquitetura_image6.png" alt="" class="headerImage"/></a>
+
 							<h3>Bloco Global de Roteamento por Segmentos (SRGB)</h3>
 
-							<a href="#" class="image text"><img src="images/scalability.png" alt=""></a>
+							<p>
+								SRGB é uma faixa de rótulos reservada para os segmentos de Nó (ou globais, pois possuem valor absoluto em um domínio de SR). O SRGB pode ser
+								alocado com rótulos entre 16000 a 1048575. O rótulo é formado por: prefixo SID + base do SRGB. Por exemplo, um roteador com prefixo SID 83
+								e um SRGB igual a 16000, possui rótulo 16083.
+							</p>
+
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th>Casos de uso</th>
+											<th>Faixa de Rótulos</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Reservada para uso especial</td>
+											<td>0 a 15</td>
+										</tr>
+										<tr>
+											<td>Reservada para rótulos MPLS estáticos</td>
+											<td>16 a 1599</td>
+										</tr>
+										<tr>
+											<td>Reservada para SR (Segment Routing)</td>
+											<td>16000 a 23999</td>
+										</tr>
+										<tr>
+											<td>Reservada para roteamento dinâmico</td>
+											<td>24000 a 1048575</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 
 							<h3>Plano de Controle IGP do SR: IS-IS e OSPF</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<a href="#" class="image text"><img src="images/Overlay_p2p.jpg" alt=""></a>
 
-							<br>
-							<br>
+							<ul class="listItems">
+								<li><b>plano de controle IGP</b>: é responsável pela configuração e distribuição dos segmentos, aplicando os segmentos em redes multi-área (OSPF) e
+									multinível (IS-IS) e verificando os anúncios de rotas, através de extensões desses protocolos.</li>
+								<li><b>IS-IS</b>: suporta o plano de controle IPv4 e IPv6, com roteamento considerando múltiplos níveis de rede (nível 1 e 2 do IS-IS). Utiliza o
+									prefixo do SID para representar as interfaces loopback dos roteadores em IPv4 e IPv6 e utiliza os Segmentos de Adjacência para identificar as
+									adjacências dos nós. </br> O anúncio do prefixo para o SID é feito pelo servidor de mapeamento (Mapping Server). O Roteamento por Segmentos
+									com IS-IS torna possível a introdução do suporte de sub-TLVs (Type-length-value) em extensões do protocolo ISIS.</li>
+								<li><b>OSPF</b>: a versão que suporta as extensões para SR é o OSPFv2, com multi-área, no qual o prefixo de SID representa as interfaces loopback dos
+									roteadores em IPv4 e os Segmentos de Adjacência identificam as adjacências do nó conforme o “draft” do IETF
+									draft-ietf-ospf-segment-routing-extensions-05. As extensões do OSPF para SR adicionam anúncios de estado de enlace opaco <b>(Opaque LSA)</b>,
+									que permitem a transmissão arbitrária de dados que o OSPF não necessariamente utilize.
+								</li>
+							</ul>
+
+							<h3>SR e LDP: Como diferentes protocolos MPLS podem coexistir na mesma rede.</h3>
+
+							<ul class="listItems">
+								<li>A arquitetura de redes IP/MPLS permite a coexistência de múltiplos protocolos para distribuição de rótulos como o LDP, RSVP-TE e o Roteamento por Segmentos;</li>
+								<li>Cada nó de rede reserva uma faixa de rótulos dentro do SRGB para o plano de controle do SR e rótulos fora do SRGB para alocação dinâmica pelo plano de controle MPLS tradicional;</li>
+								<li>As entradas dos rótulos provenientes do LDP e do SR são indexadas na FIB e LFIB dos roteadores.</li>
+							</ul>
+
+
+							<p>
+								<b><u>Exemplo - SR e LD: Caso IP para MPLS</u></b>:
+							</p>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Na figura abaixo temos o sentido do pacote da rede IP para a MPLS com SR + LDP coexistindo, o rótulo a ser inserido no pacote só pode ser recebido
+								por um dos protocolos. Caso possua vários caminhos para o destino, a entrada da tabela deve definir se o caminho selecionado vai usar o protocolo SR ou LDP.
+								Por padrão LDP é usado, para utilizar o SR é necessário ativar preferência pelo SR.
+							</p>
+
+							<a href="#" class="image fit"><img src="images/arquitetura_image7.png" alt="" class="headerImage"/></a>
+
+							<p>
+								<b><u>Servidor de Mapeamento (Mapping Server)</u></b>: Usado para prover Interoperabilidade entre nós que são habilitados ou não ao SR, ou seja, serve para
+								prover interoperabilidade das redes IP/MPLS convencionais que usam o protocolo LDP com as redes que utilizam SR. É um mecanismo de controle, não necessita estar
+								localizado no plano de dados, e deve ser redundante;
+							</p>
+
+							<p>
+								Modelos propostos para interoperabilidade:
+							</p>
+							<ul class="listItems">
+								<li>SR para LDP</li>
+								<li>LDP para SR</li>
+								<li>SR sobre LDP</li>
+								<li>LDP sobre SR</li>
+
+							</ul>
 
 							<h3>Conclusão</h3>
 							<p class="paragraphText"><span class="spaceTab"></span>Esperamos que este trabalho, envolvendo Redes de Computadores, tenha ajudado a ampliar o

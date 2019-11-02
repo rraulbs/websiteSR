@@ -71,9 +71,6 @@
 								<li><u>RIP (Protocolo de Informações de Roteamento)</u></li>
 							</ul>
 							<a href="#" class="image fit"><img src="images/comofunciona_image3.png" alt="" class="headerImage"/></a>
-							<p class="paragraphText"><span class="spaceTab"></span>Exemplo: como um pacote é encaminhado no roteamento IP</p>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
-							<a href="#" class="image text"><img src="images/.png" alt="" ></a>
 
 							<br>
 							<br>
@@ -89,9 +86,18 @@
 									<li><u>Label edge router (LER):</u> São roteadores responsáveis pela atribuição de rótulos no pacote de dados.</li>
 									<li><u>Label switch router (LSR):</u> São roteadores responsáveis pela comutação de rótulos.</li>
 								</ul>
-							<p class="paragraphText"><span class="spaceTab"></span>Exemplo_1: LER e LSR....</p>
-							<p class="paragraphText"><span class="spaceTab"></span>Exemplo_2: ...</p>
-							<p class="paragraphText"><span class="spaceTab"></span>Exemplo_3: ...</p>
+
+							<p class="paragraphText"><span class="spaceTab"></span><b><u>Exemplo: LER e LSR </b></u></p>
+							<a href="#" class="image text"><img src="images/comofunciona_image2.png" alt=""></a>
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Os roteadores de borda (vermelhos) são os LERs e outros roteadores intermediários são LSRs. MPLS começa e termina em um LER. Em um ambiente VPN,
+									o LER é chamado de Provider Edge. E eles executam pesquisa de rota IP (IP route lookup). O LSR retransmite MPLS para dentro e para fora. E realiza pesquisa
+									de etiqueta (label lookup). </br> No MPLS, um pacote é encaminhado usando a tecnologia de rótulo de fluxo (Flow label technology). Os pacotes chegam de
+									uma rede não MPLS, geralmente uma LAN. Todos os roteadores na rede têm sua própria tabela de roteamento. No roteador de borda de etiqueta, existe uma tabela
+									de pesquisa chamada tabela de encaminhamento de etiqueta (Label forwarding table). A tabela de encaminhamento corresponde ou vincula o label a um endereço IP
+									de destino.
+							</p>
+
 							<p class="paragraphText"><span class="spaceTab"></span>A nova necessidade comercial de aplicativos que podem direcionar o comportamento da rede
 								não é fácil de obter em uma infraestrutura de rede IP pura. O roteamento IP carece de flexibilidade, controle de caminho e apresenta alguns problemas
 								de desempenho. Alguns dos problemas com o roteamento IP podem ser resolvidos em uma infraestrutura de rede MPLS pura. O MPLS é mais flexível, a engenharia
