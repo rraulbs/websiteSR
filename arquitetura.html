@@ -165,6 +165,27 @@
 								<b><u>Redes IPv6 com SR</b></u>:
 							</p>
 
+							<p>
+								<b><u>Benefícios do SRv6</b></u>: O SRv6 oferece os seguintes benefícios aos usuários
+							</p>
+
+							<ul class="listItems">
+								<li>Simplifica as configurações de rede para facilitar a implementação de VPNs;</li>
+								<li>O SRv6 não utiliza técnicas MPLS e é totalmente compatível com as redes IPv6 existentes.
+									Os nós precisam apenas suportar o encaminhamento IPv6 em vez do encaminhamento MPLS. Os nós de trânsito poder ser incapazes de suportar o
+									SRv6 e encaminhar pacotes IPv6 que transportam o SRH pelas rotas;</li>
+								<li>O SRv6, em combinação com o algoritmo RLFA, suporta qualquer topologia em teoria e supera os inconvenientes da proteção convencional em túneis;</li>
+								<li>Facilita a otimização do tráfego nos caminhos de encaminhamento IPv6;</li>
+								<li>Os SIDs com vários tipos de serviço são usados para planejar caminhos explícitos flexíveis na entrada para ajustar o tráfego do serviço.</li>
+							</ul>
+
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Um pacote IPv6 consiste em um cabeçalho IPv6 normal, cabeçalhos extendidos (0..n), e o payload. Para implementar o Segment Routing IPv6 (SRv6) baseado no
+								plano de encaminhamento IPv6, é necessário uma extensão do cabeçalho IPv6, chamada de Segment Routing Header (SRH), é adicionada. Um SRH especifica um caminho
+								e armazena uma lista de informações de segmentos IPv6. O conteúdo da lista de segmentos IPv6 funciona da mesma forma que o SR MPLS.
+								A entrada adiciona um SRH ao pacote IPv6, e cada nó de trânsito encaminha o pacote baseado nas informações de caminho carregadas no SRH.
+							</p>
+
 							<ul class="listItems">
 								<li>A lista de segmentos está codificada na extensão do cabeçalho para roteamento pela fonte;</li>
 								<li>A lista de segmentos pode ser baseada no IGP ou BGP;</li>

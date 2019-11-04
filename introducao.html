@@ -74,7 +74,7 @@
 							<p class="paragraphText"><span class="spaceTab"></span>
 								O <b>RSVP</b> (Resource Reservation Protocol, ou protocolo para reserva de recursos de rede) também foi introduzido para reservar recursos fim a
 								fim ao longo do caminho de fluxo de tráfego em uma rede IP. O protocolo de sinalização RSVP foi ampliado com recursos <b>MPLS</b>
-								(Multi-Protocol Label Switch) para admitir MPLS-TE, permitindo que o RSVP configure uma rota de rede utilizando etiqueta <b>LSP</b>
+								(Multi-Protocol Label Switch) para admitir MPLS-TE, permitindo que o RSVP configure uma rota de rede utilizando rótulo. <b>LSP</b>
 								(Label Switched Path), em uma rede MPLS-TE com extensão RSVP-TE.
 							</p>
 							<p class="paragraphText"><span class="spaceTab"></span>
@@ -120,10 +120,100 @@
 
 							<ul class="listItems">
 								<li>Segmentos de Nó: possui numeração única e global, o prefixo SID, retirado do <b>SRGB</b> (Segment Routing Global Block);</li>
-								<li>Segmentos de Adjacência: possui significado local e está relacionado a uma ou mais adjacências do nó. Têm rótulo no formato 240xy para uma determinada adjacência xy;
+								<li>Segmentos de Adjacência: possui significado local e está relacionado a uma ou mais adjacências do nó;
  </li>
 								<li>Segmento Local: suportado apenas no nó que foi gerado, nenhum outro nó pode instalar este SID em sua <b>FIB</b>.</li>
 							</ul>
+
+							<p>
+								<b><u>Classificação dos segmentos</u></b>:
+							</p>
+
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th><b>Marcação</b></th>
+											<th><b>Método de Marcação</b></th>
+											<th><b>Função</b></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Segmento de prefixo</td>
+											<td>Manualmente configurado</td>
+											<td>Identifica o prefixo do endereço de destino. Um protocolo IGP propaga o segmento de prefixo de um NE para demais NEs. O segmento de prefixo é
+												visível e se torna globalmente conhecido. Cada segmento de prefixo é identificado por um SID de prefixo. Um SID de prefixo é definido em um intervalo de
+												valores SRGB e é anunciado pelo nó de origem. O terminal que recebe utiliza o SRGB local para calcular os valores da marcação e, em seguida, gera entradas
+												de encaminhamento MPLS.</td>
+										</tr>
+										<tr>
+											<td>Segmento adjacente</td>
+											<td>Alocado dinamicamente através do protocolo utilizado para ingresso ou manualmente configurado.</td>
+											<td>Identifica uma adjacência em uma rede. Um protocolo IGP propaga o segmento adjacente de um NE para demais NEs. A adjacência é visualizada globalmente,
+												mas tem efeito apenas localmente. Cada segmento adjacente é identificado por um SID de adjacência. O SID de adjacência é uma marcação local que está fora
+												do intervalo utilizado no intervalo SRGB.</td>
+										</tr>
+										<tr>
+											<td>Segmento de nó</td>
+											<td>Manualmente configurado.</td>
+											<td>Identifica um nó específico. Segmentos de nós são prefixos de segmento especiais.
+												Quando um endereço de IP é configurado como um prefixo para uma interface de loopback de um nó, o SID prefixo é o SID nó. </td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
+							<p>
+								<b>Exemplo</b>: SID de prefixos, adjacências e nós.
+								<a href="#" class="image fit"><img src="images/introducao_image4.png" alt="" class="headerImage"/></a>
+							</p>
+
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Em geral, um segmento de prefixo indica um endereço de destino, e um segmento de adjacência indica um caminho para a saída dos pacotes de dados.
+								Os segmentos de prefixo e adjacência são similares ao endereço de IP de destino e o próximo salto do IP convencional, respectivamente. Em uma área IGP,
+								um NE propaga o SID do nó e o SID do segmento adjacente através de mensagens IGP, então qualquer NE na área pode obter  informações sobre outros NEs.
+							</br>
+							</br>
+							<span class="spaceTab"></span>A combinação dos SIDs de prefixo e adjacências em sequência pode construir qualquer caminho de rede. Todo salto em um caminho identifica o próximo salto,
+							o qual é baseado nas informações de segmentos da parte superior da pilha de rótulos. As informações do segmento são empilhadas em sequência no topo do cabeçalho.
+							Se o SID receptor identifica outro nó ele direciona o pacote recebido para o nó de destino utilizando ECMP. Se o SID receptor identifica   o nó local ele receptor remove o
+							SID do topo da lista e executa o seguinte procedimento.
+							</p>
+
+
+
+
+							<p class="paragraphText"><span class="spaceTab"></span>
+								Segmentos de prefixo, adjacência e nós podem ser usados de forma ou independentemente ou em combinação. Geralmente são usados da seguinte forma:
+							</br>
+							</br>
+							<b>Modo baseado no segmento de prefixo</b>: Um protocolo IGP utiliza o algoritmo Shortest Path First (SPF) para computar o caminho mais curto. Essa forma também é
+							chamada de Segment Routing-Best Effort (SR-BE). Como mostrado na figura, o nó Z está conectado à rede de destino utilizando o SID 68.
+							Depois do protocolo IGP propagar o SID de prefixo, cada nó na área do IGP aprende esse SID da rede Z e então executa o SPF para computar o caminho mais curto
+							para àquela rede.
+							</br>
+							</br>
+							<a href="#" class="image fit"><img src="images/introducao_image1.png" alt="" class="headerImage"/></a>
+							</br>
+							</br>
+							<b>Modo baseado no segmento de adjacência</b>: Como mostrado na figura, um segmento de adjacência é alocado para cada adjacência na rede, e uma lista de segmentos
+							com múltiplos segmentos de adjacência é definido ao se realizar o ingresso na rede, dessa forma qualquer caminho pode ser explicitamente especificado. Esse modo é
+							geralmente utilizado para implementação do Segment Routing-Traffic Engineering (SR-TE).
+							</br>
+							</br>
+							<a href="#" class="image fit"><img src="images/introducao_image2.png" alt="" class="headerImage"/></a>
+							</br>
+							</br>
+							<b>Modo no qual adjacências e nós são combinados</b>: Como mostrado na figura, segmentos de adjacência e nós são combinados, e o segmento de adjacência permite
+							forçar um caminho específico apenas incluindo adjacências na lista. Nós podem executar SPF para computar o menor caminho baseado nos segmentos de nós ou estabelecer
+							múltiplos caminhos para realizar balanceamento de carga. Os caminhos definidos neste modo não são estritamente fixos, portanto, eles também são chamados de
+							Loose Explicit Paths. Esse modo é geralmente usado para SR-TE (Segment Routing-Traffic Engineering).
+							</br>
+							</br>
+							<a href="#" class="image fit"><img src="images/introducao_image3.png" alt="" class="headerImage"/></a>
+							</p>
+
 
 							<p><b><u>
 								Tipos de instruções:

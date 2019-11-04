@@ -33,7 +33,7 @@
 					<ul>
 						<li><a href="index.html">Início</a></li>
 						<li><a href="introducao.html">Introdução</a></li>
-						<li><a href="aplicacoes.html">Como funciona</a></li>
+						<li><a href="comofunciona.html">Como funciona</a></li>
 						<li><a href="arquitetura.html">Arquitetura</a></li>
 						<li><a href="glossario.html">Glossário</a></li>
 						<li><a href="questoes.html">Questões</a></li>
@@ -110,13 +110,54 @@
 								IP Routing ou MPLS.
 							</p>
 
+							<p class="paragraphText"><span class="spaceTab"></span>
+								<b><u>SR e outros protocolos MPLS</u></b>: O roteamento por segmentos não necessita da implementação de LDP ou RSVP-TE. Ao invés disso,
+								utiliza um IGP para distribuir as marcações e computar os caminhos, sem a necessidade de alterar a arquitetura MPLS existente.
+								O roteamento por segmentos têm as seguintes vantagens em relação a outros protocolos MPLS:
+							</p>
 
-							<a href="#" class="image text"><img src="images/ .png" alt=""></a>
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th><b>Item</b></th>
+											<th><b>Segment Routing</b></th>
+											<th><b>MPLS</b></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Protocolo de controle</td>
+											<td>IGP</td>
+											<td>LDP/RSVP-TE/BGP/IGP</td>
+										</tr>
+										<tr>
+											<td>Distribuição das marcações</td>
+											<td>Uma marcação é adicionada para cada adjacência ou nó,
+												e o número de marcações para serem distribuídos é independente do número de túneis, reduzindo a quantidade de recursos necessário.</td>
+											<td>O número de marcações é distribuído e aumenta conforme o número de túneis, necessitando uma quantidade maior de recursos.</td>
+										</tr>
+										<tr>
+											<td>Ajustes de caminho e controle</td>
+											<td>O ingressante executa a re-computação para descobrir os caminhos e ajustar o controle.</td>
+											<td>Configurações precisam ser entregues nó a nó para ajuste do caminho e controle. </td>	
+										</tr>
+									</tbody>
+								</table>
+							</div>
 
 							<br>
 							<br>
 
 							<h3>Segment Routing</h3>
+
+							<p class="paragraphText"><span class="spaceTab"></span>
+								O roteamento baseado em IPv6 é um protocolo projetado para encaminhar pacotes de dados IPV6 em uma rede com base nas rotas de origem.
+								O SRv6 baseado no plano de encaminhamento IPv6 permite que a entrada adicione um segmento ao cabeçalho de roteamento (SRH) em pacotes IPv6.
+								Uma pilha de endereços explícita de endereços IPv6 é enviada ao SRH, os nós de trânsito atualizam a lista de endereços IP de destino e deslocam a
+								pilha de endereços para implementar o encaminhamento por saltos. Veremos mais detalhes na sessão de "Arquitetura"
+ 							</p>
+
 							<p class="paragraphText"><span class="spaceTab"></span>	Os segmentos indicam basicamente o caminho exato que o pacote deve seguir na rede.
 								Ou, em termos mais simples, os segmentos são as instruções que o pacote deve seguir para alcançar seu destino. Uma coisa importante a ser
 								observada aqui é que o estado de encaminhamento completo do fluxo de tráfego está no pacote e não na rede.
@@ -153,6 +194,59 @@
 								do pacote do nó de origem (1) até o nó de destino (5):
 							</p>
 							<a href="#" class="image fit"><img src="images/comofunciona_image5.png" alt="" class="headerImage"/></a>
+
+
+							<h3>Engenharia de Tráfego do Segment Routing</h3>
+
+							<p class="paragraphText"><span class="spaceTab"></span>
+								SR-Traffic Engineering (SR-TE) é uma nova técnica de tunelamento do Multiprotocol Label Switching (MPLS) Traffic Engineering (TE), implementada baseada no IGP.
+								O controlador calcula um caminho para um túnel SR-TE e encaminha uma pilha de etiquetas para entrada de um encaminhador. A entrada usa a pilha de rótulos para gerar
+								um LSP no túnel SR-TE, portanto, a pilha de rótulos é usada para controlar o caminho ao longo do qual os pacotes são transmitidos em uma rede.
+							</br>
+							</br>
+							<b><u>Vantagens do SR-TE</b></u>: Os túneis SR-TE são capazes de atender aos requisitos para o desenvolvimento rápido de redes definidas por software (SDN), que os túneis do
+							Resource Reservation Protocol-TE (RSVP-TE) não conseguem atender. A tabela abaixo descreve a comparação entre SR-TE e RSVP-TE.
+							</p>
+
+							<div class="table-wrapper">
+								<table>
+									<thead>
+										<tr>
+											<th><b>Itens</b></th>
+											<th><b>SR-TE</b></th>
+											<th><b>RSVP-TE</b></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><b>Alocação de rótulos</b></td>
+											<td>O IGP estendido atribui e distribui etiquetas, cada link recebe apenas um rótulo e todos os LSPs compartilham o rótulo, o que reduz o
+												consumo de recursos e a carga de trabalho de manutenção das tabelas de encaminhamento de rótulos.</td>
+											<td>O MPLS aloca e distribui etiquetas, cada LSP recebe um rótulo, que consome um grande número de recursos de rótulos e resulta em tabelas com
+												cargas de trabalho pesadas para se manter.</td>
+										</tr>
+										<tr>
+											<td><b>Plano de controle</b></td>
+											<td>Um IGP é usado, o que reduz o número de protocolos a serem usados.</td>
+											<td>RSVP-TE é usado, e o plano de controle é complexo.</td>
+										</tr>
+										<tr>
+											<td><b>Escalabilidade</b></td>
+											<td>Alta escalabilidade. A informação do túnel é carregada nos pacotes, então um dispositivo intermediário não consegue diferenciar um túnel SR-TE.
+												Isso elimina a necessidade de se manter informações de estado do túnel. Apenas as informações de encaminhamento são mantidas, aumentando a escalabilidade.</td>
+											<td>Pobre escalabilidade. É necessário manter informações de estado do túnel e as entradas de encaminhamento.</td>
+										</tr>
+										<tr>
+											<td><b>Ajuste do caminho e controle</b></td>
+											<td>Os caminhos podem ser controlados pela operação com as etiquetas no momento do ingresso. Configurações não precisam ser entregues a cada nó, o que
+												aumenta a programabilidade. Quando um nó no caminho falha o controlador recalcula o caminho e atualiza a pilha de etiquetas do nó ingressante para completar
+												o ajuste do caminho.</td>
+											<td>Independente se for um ajuste normal do serviço ou um ajuste de caminho passivo de um cenário de falha, as configurações devem ser entregues a cada nó.</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+
 
 						</section>
 
