@@ -54,19 +54,38 @@
 						<section id="content">
 							<a href="#" class="image fit"><img src="images/questions2.jpg" alt="" class="headerImage"/></a>
 							<h3>1. Quais as vantagens das redes MPLS com SR em relação as redes MPLS sem SR?</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Redes MPLS com SR não necessitam da manutenção de estados por fluxo dentro da rede, reduzindo a
+								complexidade dos planos de controle e dados. Permite a configuração, a modificação e a remoção de caminhos TE dentro de um domínio de rede, operando somente
+								na borda da rede.
+							</p>
 
 							<h3>2. Sobre a arquiteura SR, cite dois planos de controle e dois planos de dados: </h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<p>Plano de controle: OSPF e IS-IS. </br> Plano de dados: MPLS e IPv6.</p>
 
 							<h3>3. Qual contexto que motivou e levou ao surgimento da tecnologia de SR?</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>A borda da rede está crescendo continuamente com o surgimento de novas tecnologias (5G, IoT, IA, etc)
+								que demandam uma maior capacidade de computação, tal crescimento vem aumentando a pressão sobre a conectividade IP e os protocolos que gerem a internet atualmente.
+								SR é uma arquitetura de roteamento de origem que traz um grande avanço na simplificação da rede IP, e é uma maneira mais flexível e escalável de fazer roteamento
+								de origem.
+							</p>
 
 							<h3>4. Descreva o que é um segmento, os tipos de segmentos e seus tipos de instruções:</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>É um identificador genérico para qualquer tipo de instrução: um serviço, contexto, localizador ou um caminho
+								baseado no IGP ou no BGP. O segmento é identificado pelo ID do segmento (SID), em redes IP/MPLS é representado por uma pilha de rótulos, enquanto que em redes IPv6 é
+								representado pela extensão do cabeçalho para roteamento.
+							</br>
+								Tipos de segmentos: segmentos de nó, segmentos de adjacência e segmento local.
+							</br>
+								Tipos de instruções: Ir para o nó N usando o caminho mais curto; Vá para o nó N no caminho mais curto para o nó M e depois siga os links Camada 1, Camada 2 e Camada 3;
+								Aplicar serviço S.
+							</p>
 
 							<h3>5. Diferentes protocolos, por exemplo, LDP e SR podem coexistir na mesma rede? Explique.</h3>
-							<p class="paragraphText"><span class="spaceTab"></span>...</p>
+							<p class="paragraphText"><span class="spaceTab"></span>Sim. A arquitetura de redes IP/MPLS permite a coexistência de múltiplos protocolos para distribuição de rótulos
+								como o LDP, RSVP-TE e o Roteamento por Segmentos. O servidor de mapeamento (Mapping server) é Usado para prover Interoperabilidade entre nós que são habilitados ou
+								não ao SR, ou seja, serve para prover interoperabilidade das redes IP/MPLS convencionais que usam o protocolo LDP com as redes que utilizam SR. É um mecanismo de
+								controle, não necessita estar localizado no plano de dados, e deve ser redundante.
+							</p>
 
 						</section>
 
